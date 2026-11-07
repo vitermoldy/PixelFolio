@@ -49,3 +49,72 @@ const sizes = [
   <p class="visually-hidden" role="status" data-px-status></p>
 </div>
 
+<script>
+  import { mountPixelField } from '../scripts/pixelField';
+
+  const canvas = document.querySelector<HTMLCanvasElement>('[data-px-field]');
+  const toggle = document.querySelector<HTMLButtonElement>('[data-px-toggle]');
+  const sizeBtns = document.querySelectorAll<HTMLButtonElement>('[data-px-size]');
+  const paletteBtns = document.querySelectorAll<HTMLButtonElement>('[data-px-palette]');
+  const status = document.querySelector<HTMLElement>('[data-px-status]');
+
+  if (canvas && toggle) {
+    const field = mountPixelField(canvas);
+    const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const read = (k: string) => {
+      try {
+        return localStorage.getItem(k);
+      } catch {
+        return null;
+      }
+    };
+    const write = (k: string, val: string) => {
+      try {
+        localStorage.setItem(k, val);
+      } catch {
+        /* mode privat: pilihan tidak disimpan */
+      }
+    };
+
+    const stored = read('pf-pixels');
+    const setOn = (on: boolean, save: boolean) => {
+      toggle.setAttribute('aria-pressed', String(on));
+      document.documentElement.toggleAttribute('data-px-off', !on);
+      field?.setEnabled(on);
+      if (save) write('pf-pixels', on ? 'on' : 'off');
+    };
+    setOn(stored ? stored === 'on' : !reduced, false);
+    toggle.addEventListener('click', () => setOn(toggle.getAttribute('aria-pressed') !== 'true', true));
+
+    const setSize = (n: 1 | 2 | 3, save: boolean) => {
+      sizeBtns.forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.pxSize) === n)));
+      field?.setBrush(n);
+      if (save) write('pf-brush', String(n));
+    };
+    const storedSize = Number(read('pf-brush'));
+    setSize(storedSize === 1 || storedSize === 3 ? storedSize : 2, false);
+    sizeBtns.forEach((b) => b.addEventListener('click', () => setSize(Number(b.dataset.pxSize) as 1 | 2 | 3, true)));
+
+    // palet: atribut di <html> mengganti semua variabel warna; efek dan nama di footer membaca ulang warnanya
+    const root = document.documentElement;
+    const themeColour = document.querySelector('meta[name="theme-color"]');
+    const markPalette = () => {
+      paletteBtns.forEach((b) => b.setAttribute('aria-pressed', String(b.dataset.pxPalette === root.dataset.palette)));
+      themeColour?.setAttribute('content', getComputedStyle(root).getPropertyValue('--paper').trim());
+    };
+    markPalette();
+    paletteBtns.forEach((b) =>
+      b.addEventListener('click', () => {
+        const id = b.dataset.pxPalette;
+        if (!id || id === root.dataset.palette) return;
+        root.dataset.palette = id;
+        write('pf-palette', id);
+        markPalette();
+        field?.refreshColours();
+        dispatchEvent(new CustomEvent('pf:palette', { detail: id }));
+        if (status) status.textContent = `Palet ${b.title} dipakai.`;
+      }),
+    );
+  }
+</script>
+
