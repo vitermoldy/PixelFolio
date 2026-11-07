@@ -86,3 +86,122 @@ const pad = (n: number) => String(n).padStart(2, '0');
   </article>
 </Base>
 
+<style>
+  .case-head {
+    display: grid;
+    gap: 20px;
+    justify-items: start;
+    padding-top: calc(var(--header-h) + 48px);
+    padding-bottom: 48px;
+  }
+
+  .back {
+    margin-bottom: 24px;
+    padding-top: 10px;
+  }
+
+  .case-title {
+    font-size: clamp(48px, 9vw, 144px);
+    line-height: 0.92;
+    letter-spacing: -0.045em;
+  }
+
+  .case-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px 56px;
+    margin: 16px 0 0;
+    padding-top: 20px;
+    border-top: 2px solid var(--ink);
+    width: 100%;
+  }
+
+  .case-meta div {
+    display: grid;
+    gap: 2px;
+  }
+
+  .case-meta dd {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  .case-cover {
+    overflow: hidden;
+    border-radius: var(--radius);
+  }
+
+  .case-body {
+    display: grid;
+    gap: 0;
+    padding-top: 96px;
+    padding-bottom: 96px;
+  }
+
+  .case-section {
+    display: grid;
+    grid-template-columns: 0.8fr 1.2fr;
+    gap: 48px;
+    padding: 40px 0;
+    border-top: 1px solid var(--line-strong);
+  }
+
+  .case-h2 {
+    font-size: clamp(28px, 3vw, 40px);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+  }
+
+  .next {
+    padding-bottom: 96px;
+  }
+
+  .next-link {
+    display: grid;
+    gap: 8px;
+    padding: 40px;
+    background: var(--ink);
+    color: var(--paper);
+    text-decoration: none;
+    border-radius: var(--radius);
+    transition: transform var(--m-out) var(--m-ease);
+  }
+
+  .next-link .px-label {
+    color: var(--on-dark-muted);
+  }
+
+  .next-title {
+    font-size: clamp(36px, 6vw, 88px);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    font-weight: 500;
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .next-link:hover {
+      transform: translateY(-2px);
+      background: var(--mid);
+    }
+  }
+
+  @media (max-width: 767px) {
+    .case-section {
+      grid-template-columns: 1fr;
+      gap: 12px;
+    }
+
+    .case-body {
+      padding-top: 56px;
+      padding-bottom: 56px;
+    }
+
+    .next-link {
+      padding: 28px 20px;
+    }
+
+    .case-cover {
+      border-radius: 10px;
+    }
+  }
+</style>
