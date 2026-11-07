@@ -266,3 +266,17 @@ button:disabled {
   max-width: 46ch;
 }
 
+/* ===== section: satu gagasan per layar ===== */
+.screen {
+  position: relative;
+  min-height: calc(var(--h, 1) * 100svh);
+  padding: calc(var(--cell) * 15) 0 calc(var(--cell) * 9);
+}
+
+@media (max-width: 639px) {
+  .screen {
+    min-height: 0;
+    padding: calc(var(--cell) * 14) 0 calc(var(--cell) * 6);
+  }
+}
+
