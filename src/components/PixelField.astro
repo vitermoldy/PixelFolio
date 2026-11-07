@@ -118,3 +118,163 @@ const sizes = [
   }
 </script>
 
+<style>
+  .px-field {
+    position: fixed;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    pointer-events: none;
+  }
+
+  .pxctl {
+    position: fixed;
+    left: 16px;
+    bottom: 16px;
+    z-index: 60;
+    display: flex;
+    align-items: center;
+    gap: 2px;
+    padding: 4px;
+    background: var(--paper);
+    box-shadow: inset 0 0 0 2px var(--ink);
+    clip-path: var(--px-corners);
+  }
+
+  .pxctl button {
+    min-width: 44px;
+    min-height: 44px;
+    border: 0;
+    background: transparent;
+    color: var(--ink);
+    font: 500 15px/1 var(--font-sans);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: background-color var(--m-out) var(--m-ease);
+  }
+
+  .pxctl-toggle {
+    padding: 0 12px;
+  }
+
+  .pxctl-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--px-hot);
+    box-shadow:
+      0 0 0 2px var(--ink),
+      4px 0 0 2px var(--mid);
+  }
+
+  .pxctl-toggle[aria-pressed='false'] .pxctl-dot {
+    background: var(--paper);
+    box-shadow: 0 0 0 2px var(--ink);
+  }
+
+  .pxctl-toggle[aria-pressed='false'] .pxctl-text {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+  }
+
+  .pxctl-sizes {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  .pxctl-sep {
+    width: 2px;
+    height: 24px;
+    margin: 0 4px;
+    background: var(--line-strong);
+  }
+
+  .pxctl-size {
+    font-family: var(--font-pixel) !important;
+  }
+
+  .pxctl-size[aria-pressed='true'] {
+    background: var(--ink);
+    color: var(--paper);
+  }
+
+  :global(html[data-px-off]) .pxctl-sizes {
+    display: none;
+  }
+
+  .pxctl-palettes {
+    display: inline-flex;
+    align-items: center;
+    gap: 2px;
+  }
+
+  /* contoh warna: skala panas palet itu sendiri, dingin ke panas */
+  .pxctl-swatch {
+    display: grid;
+    grid-template-columns: repeat(2, 10px);
+    gap: 2px;
+    padding: 2px;
+  }
+
+  .pxctl-swatch i {
+    width: 10px;
+    height: 10px;
+  }
+
+  .pxctl-swatch i:nth-child(1) {
+    background: var(--px-cold);
+  }
+
+  .pxctl-swatch i:nth-child(2) {
+    background: var(--mid);
+  }
+
+  .pxctl-swatch i:nth-child(3) {
+    background: var(--px-warm);
+  }
+
+  .pxctl-swatch i:nth-child(4) {
+    background: var(--px-hot);
+  }
+
+  /* cincin di tombol, bukan di contoh warna, agar memakai tinta palet yang sedang aktif */
+  .pxctl-palette[aria-pressed='true'] {
+    box-shadow: inset 0 0 0 2px var(--ink);
+  }
+
+  @media (hover: hover) and (pointer: fine) {
+    .pxctl button:hover {
+      background: var(--paper-2);
+    }
+
+    .pxctl-size[aria-pressed='true']:hover {
+      background: var(--mid);
+      color: #fff;
+    }
+  }
+
+  .pxctl button:active {
+    transform: translateY(1px) scale(0.985);
+  }
+
+  /* layar sentuh: ukuran kuas tidak relevan, cukup tombol nyala/mati */
+  @media (hover: none), (max-width: 639px) {
+    .pxctl {
+      left: 12px;
+      bottom: 12px;
+    }
+
+    .pxctl-sizes {
+      display: none;
+    }
+  }
+
+  @media print {
+    .px-field,
+    .pxctl {
+      display: none;
+    }
+  }
+</style>
