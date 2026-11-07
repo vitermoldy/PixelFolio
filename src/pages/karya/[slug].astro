@@ -1,0 +1,88 @@
+---
+import Base from '../../layouts/Base.astro';
+import Cover from '../../components/Cover.astro';
+import { profile, projects, type Project } from '../../data/profile';
+
+export function getStaticPaths() {
+  return projects.map((project, i) => ({
+    params: { slug: project.slug },
+    props: { project, next: projects[(i + 1) % projects.length], index: i },
+  }));
+}
+
+interface Props {
+  project: Project;
+  next: Project;
+  index: number;
+}
+
+const { project, next, index } = Astro.props;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<Base title={`${project.title}, studi kasus oleh ${profile.name}`} description={project.summary}>
+  <article class="case">
+    <header class="wrap case-head">
+      <a class="link back" href="/#karya">Kembali ke semua karya</a>
+      <p class="px-label">{pad(index + 1)} / {project.kind}, {project.year}</p>
+      <h1 class="case-title">{project.title}</h1>
+      <p class="lead">{project.summary}</p>
+
+      <dl class="case-meta">
+        <div>
+          <dt class="px-label">Peran</dt>
+          <dd>{project.role}</dd>
+        </div>
+        <div>
+          <dt class="px-label">Tahun</dt>
+          <dd>{project.year}</dd>
+        </div>
+        <div>
+          <dt class="px-label">Alat</dt>
+          <dd>{project.tools.join(', ')}</dd>
+        </div>
+        {
+          project.url && (
+            <div>
+              <dt class="px-label">Situs</dt>
+              <dd>
+                <a class="link" href={project.url} rel="noopener" target="_blank">
+                  Buka situs {project.title}
+                </a>
+              </dd>
+            </div>
+          )
+        }
+      </dl>
+    </header>
+
+    <div class="wrap">
+      <div class="case-cover">
+        <Cover project={project} eager />
+      </div>
+    </div>
+
+    <div class="wrap case-body">
+      {
+        project.caseStudy.map((s) => (
+          <section class="case-section">
+            <h2 class="case-h2">{s.heading}</h2>
+            <p class="lead">{s.body}</p>
+          </section>
+        ))
+      }
+    </div>
+
+    {
+      next.slug !== project.slug && (
+        <nav class="wrap next" aria-label="Proyek berikutnya">
+          <a class="next-link" href={`/karya/${next.slug}/`}>
+            <span class="px-label">Proyek berikutnya</span>
+            <span class="next-title">{next.title}</span>
+          </a>
+        </nav>
+      )
+    }
+  </article>
+</Base>
+
