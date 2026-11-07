@@ -331,3 +331,39 @@ button:disabled {
   transition-duration: var(--m-press);
 }
 
+/* tautan teks: garis bawah putus-putus seperti deretan piksel, digambar saat hover */
+.link {
+  text-decoration: none;
+  background:
+    repeating-linear-gradient(90deg, currentColor 0 4px, transparent 4px 8px) left bottom / 100% 2px no-repeat,
+    linear-gradient(currentColor, currentColor) left bottom / 0% 2px no-repeat;
+  padding-bottom: 3px;
+  transition: background-size var(--m-out) var(--m-ease);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .link:hover {
+    background-size: 0% 2px, 100% 2px;
+    transition-duration: var(--m-in);
+  }
+}
+
+/* kanvas piksel: tajam di setiap layar */
+.pixelated {
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
