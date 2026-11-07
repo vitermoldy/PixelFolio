@@ -1,0 +1,51 @@
+---
+/*
+ * Lapisan piksel untuk seluruh situs + kontrolnya.
+ * Kontrol wajib ada (antislop R-39): efek bergerak lebih dari 5 detik harus bisa dihentikan.
+ */
+import { palettes } from '../data/palettes';
+
+const sizes = [
+  { id: 1, label: 'S', name: 'Kuas kecil' },
+  { id: 2, label: 'M', name: 'Kuas sedang' },
+  { id: 3, label: 'L', name: 'Kuas besar' },
+];
+---
+
+<canvas class="px-field" data-px-field aria-hidden="true"></canvas>
+
+<div class="pxctl" role="group" aria-label="Efek piksel" data-pxctl>
+  <button type="button" class="pxctl-toggle" data-px-toggle aria-pressed="true">
+    <span class="pxctl-dot" aria-hidden="true"></span>
+    <span class="pxctl-text">Piksel</span>
+    <span class="visually-hidden">: efek kursor</span>
+  </button>
+  <span class="pxctl-sizes">
+    <span class="pxctl-sep" aria-hidden="true"></span>
+    {
+      sizes.map((s) => (
+        <button type="button" class="pxctl-size" data-px-size={s.id} aria-pressed={s.id === 2 ? 'true' : 'false'} aria-label={s.name}>
+          <span aria-hidden="true">{s.label}</span>
+        </button>
+      ))
+    }
+  </span>
+  <span class="pxctl-sep" aria-hidden="true"></span>
+  <span class="pxctl-palettes" role="group" aria-label="Palet warna">
+    {
+      palettes.map((p) => (
+        <button type="button" class="pxctl-palette" data-px-palette={p.id} aria-pressed="false" aria-label={`Palet ${p.name}`} title={p.name}>
+          {/* data-palette di sini membuat contoh warna memakai palet tombol itu sendiri */}
+          <span class="pxctl-swatch" data-palette={p.id} aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <i />
+          </span>
+        </button>
+      ))
+    }
+  </span>
+  <p class="visually-hidden" role="status" data-px-status></p>
+</div>
+
