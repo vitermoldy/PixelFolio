@@ -62,3 +62,65 @@ const links = [
   </div>
 </header>
 
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+  const menu = document.getElementById('menu-ponsel');
+  const label = document.querySelector('[data-menu-label]');
+
+  if (toggle && menu && label) {
+    const setOpen = (open: boolean) => {
+      toggle.setAttribute('aria-expanded', String(open));
+      label.textContent = open ? 'Tutup menu' : 'Buka menu';
+      menu.hidden = !open;
+      document.body.style.overflow = open ? 'hidden' : '';
+      if (open) menu.querySelector<HTMLAnchorElement>('a')?.focus();
+    };
+
+    toggle.addEventListener('click', () => setOpen(toggle.getAttribute('aria-expanded') !== 'true'));
+    menu.querySelectorAll('[data-menu-link]').forEach((a) => a.addEventListener('click', () => setOpen(false)));
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !menu.hidden) {
+        setOpen(false);
+        toggle.focus();
+      }
+    });
+    matchMedia('(min-width: 900px)').addEventListener('change', (e) => {
+      if (e.matches) setOpen(false);
+    });
+  }
+
+  // tandai tautan navigasi untuk bagian yang sedang terlihat
+  const navLinks = [...document.querySelectorAll<HTMLAnchorElement>('.nav a[href*="#"]')];
+  // bagian tanpa tautan sendiri ikut menandai tautan induknya
+  const alias: Record<string, string> = { arsip: 'karya' };
+  const targets = [...navLinks.map((a) => a.hash.slice(1)), ...Object.keys(alias)]
+    .map((id) => document.getElementById(id))
+    .filter((el): el is HTMLElement => !!el);
+
+  if (targets.length && 'IntersectionObserver' in window) {
+    const mark = (id: string | null) => {
+      navLinks.forEach((a) => {
+        if (id && a.hash === `#${id}`) a.setAttribute('aria-current', 'true');
+        else a.removeAttribute('aria-current');
+      });
+    };
+    const visible = new Map<string, number>();
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((e) => visible.set(e.target.id, e.isIntersecting ? e.intersectionRatio : 0));
+        let best = '';
+        let max = 0.2;
+        for (const [id, ratio] of visible) {
+          if (ratio > max) {
+            max = ratio;
+            best = id;
+          }
+        }
+        mark(best ? (alias[best] ?? best) : null);
+      },
+      { threshold: [0, 0.2, 0.4, 0.6, 0.8, 1], rootMargin: '-64px 0px 0px 0px' },
+    );
+    targets.forEach((t) => io.observe(t));
+  }
+</script>
+
