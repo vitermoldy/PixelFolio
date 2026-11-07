@@ -51,3 +51,19 @@
   --px-soft: #f6d66b;
 }
 
+[data-palette='neon'] {
+  --paper: #ffffff;
+  --paper-2: #efefef;
+  --ink: #0a0a0a;
+  --ink-2: #2a2a2a;
+  --muted: #5f5f5f;
+  --mid: #3b5bd9;
+  --accent: #e0492a;
+  --on-dark: #ffffff;
+  --on-dark-muted: #b3b3b3;
+  --px-cold: #1c2541;
+  --px-warm: #f5c518;
+  --px-hot: #d8ff00;
+  --px-soft: #f8de72;
+}
+
