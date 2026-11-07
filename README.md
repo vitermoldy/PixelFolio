@@ -55,3 +55,8 @@ src/
 DESIGN.md                arah desain dan alasan setiap keputusan
 ```
 
+## Deploy
+
+Folder `dist/` bisa diunggah ke hosting statis mana pun (Netlify, Vercel, Cloudflare Pages, GitHub Pages).
+
+Ingin dijadikan aplikasi Android (APK)? Bungkus folder `dist/` dengan [Capacitor](https://capacitorjs.com): `npm i @capacitor/core @capacitor/cli @capacitor/android`, `npx cap init` dengan `webDir: "dist"`, lalu `npx cap add android` dan buka di Android Studio.
