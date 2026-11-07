@@ -1,0 +1,64 @@
+---
+import { profile } from '../data/profile';
+
+const base = Astro.url.pathname === '/' ? '' : '/';
+const links = [
+  { href: `${base}#karya`, label: 'Karya' },
+  { href: `${base}#tentang`, label: 'Tentang' },
+  { href: `${base}#proses`, label: 'Proses' },
+  { href: `${base}#kontak`, label: 'Kontak' },
+];
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="brand" href="/" aria-label={`${profile.name}, halaman utama`}>
+      <span class="brand-mark" aria-hidden="true"></span>
+      <span>{profile.name}</span>
+    </a>
+
+    <nav class="nav" aria-label="Navigasi utama">
+      <ul>
+        {
+          links.map((l) => (
+            <li>
+              <a href={l.href}>{l.label}</a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <a class="btn btn--sm nav-cta" href={`mailto:${profile.email}`}>Kirim email</a>
+
+    <button
+      class="menu-btn"
+      type="button"
+      aria-expanded="false"
+      aria-controls="menu-ponsel"
+      data-menu-toggle
+    >
+      <span class="visually-hidden" data-menu-label>Buka menu</span>
+      <span class="menu-icon" aria-hidden="true"><i></i><i></i></span>
+    </button>
+  </div>
+
+  <div class="mobile-menu" id="menu-ponsel" hidden>
+    <nav aria-label="Navigasi ponsel">
+      <ul>
+        {
+          links.map((l, i) => (
+            <li>
+              <a href={l.href} data-menu-link>
+                <span class="px-label">0{i + 1}</span>
+                {l.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <a class="btn" href={`mailto:${profile.email}`}>Kirim email</a>
+  </div>
+</header>
+
