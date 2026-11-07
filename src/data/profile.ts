@@ -65,3 +65,26 @@ export const about = {
   ],
 };
 
+export const workProcess = {
+  heading: 'Cara saya mengerjakan proyek',
+  lead: 'Setiap proyek melewati empat tahap. Anda melihat hasil kerja di akhir setiap tahap, bukan hanya di akhir proyek.',
+  steps: [
+    {
+      title: 'Memahami masalah',
+      body: 'Wawancara singkat dengan Anda dan pengguna, lalu satu dokumen ringkas berisi tujuan, batasan, dan ukuran berhasil.',
+    },
+    {
+      title: 'Menyusun arah visual',
+      body: 'Dua atau tiga arah desain dalam bentuk halaman nyata, bukan papan mood. Kita pilih satu dan mempertajamnya.',
+    },
+    {
+      title: 'Membangun halaman',
+      body: 'Desain langsung jadi kode. Anda mendapat tautan pratinjau yang diperbarui setiap kali ada kemajuan.',
+    },
+    {
+      title: 'Merilis dan merawat',
+      body: 'Uji di ponsel dan desktop, pindah ke domain Anda, lalu serah terima dengan panduan singkat untuk tim.',
+    },
+  ],
+};
+
