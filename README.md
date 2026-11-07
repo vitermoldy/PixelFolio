@@ -41,3 +41,17 @@ Semua teks ada di satu file: [`src/data/profile.ts`](src/data/profile.ts).
 
 Bagian yang dikosongkan tidak akan tampil. Jangan menambahkan angka, klien, atau testimoni yang tidak bisa dibuktikan.
 
+## Struktur
+
+```
+src/
+  data/profile.ts        semua konten
+  data/palettes.ts       daftar palet dan palet bawaan
+  components/            Header, Hero, Work, About, Process, Footer, Cover, PixelField
+  scripts/               pixelField.ts (efek kursor), pixelWordmark.ts (footer)
+  lib/pixelCover.ts      generator sampul piksel (dijalankan saat build)
+  pages/                 beranda, /karya/[slug], 404
+  styles/global.css      token warna, tipografi, tombol
+DESIGN.md                arah desain dan alasan setiap keputusan
+```
+
