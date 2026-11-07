@@ -1,0 +1,37 @@
+/*
+ * PixelFolio design system.
+ * Alasan setiap keputusan ada di DESIGN.md (antislop R-31).
+ */
+
+@import '@fontsource/schibsted-grotesk/400.css';
+@import '@fontsource/schibsted-grotesk/500.css';
+@import '@fontsource/schibsted-grotesk/700.css';
+@import '@fontsource/tiny5/400.css';
+
+/*
+ * Palet warna. Pengunjung menukarnya lewat kontrol "Piksel"; bawaan: hutan.
+ * Setiap palet punya peran yang sama:
+ *   paper/ink        kertas dan tinta (teks utama)
+ *   mid              warna kedua: hover tombol, cincin fokus (teks putih di atasnya >= 4.5:1)
+ *   accent           percikan: titik status, bar progres (isian saja, tidak pernah teks)
+ *   px-cold..px-hot  skala panas efek kursor, dingin ke panas (isian saja)
+ *   px-soft          satu-satunya warna hangat selain px-hot yang boleh di bawah teks
+ * Semua pasangan teks/latar dicek WCAG AA untuk keempat palet (lihat DESIGN.md).
+ */
+:root,
+[data-palette='hutan'] {
+  --paper: #eef0e6;
+  --paper-2: #e1e5d6;
+  --ink: #121a14;
+  --ink-2: #2c3a2f;
+  --muted: #4f5b4d;
+  --mid: #1f6e44;
+  --accent: #e4572e;
+  --on-dark: #eef0e6;
+  --on-dark-muted: #aab6a5;
+  --px-cold: #0f3d2e;
+  --px-warm: #f0b429;
+  --px-hot: #fff36b;
+  --px-soft: #f8de8f;
+}
+
