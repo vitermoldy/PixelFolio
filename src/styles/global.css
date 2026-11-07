@@ -67,3 +67,19 @@
   --px-soft: #f8de72;
 }
 
+[data-palette='bara'] {
+  --paper: #f6efe7;
+  --paper-2: #ebe0d3;
+  --ink: #1a1210;
+  --ink-2: #3a2b25;
+  --muted: #665148;
+  --mid: #a8360a;
+  --accent: #22b8cf;
+  --on-dark: #f6efe7;
+  --on-dark-muted: #c2b1a6;
+  --px-cold: #4a1e12;
+  --px-warm: #f59e0b;
+  --px-hot: #fde68a;
+  --px-soft: #fbd99a;
+}
+
