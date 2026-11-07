@@ -1,0 +1,39 @@
+---
+import { workProcess } from '../data/profile';
+
+const total = workProcess.steps.length;
+---
+
+<section class="screen process" id="proses">
+  <div class="wrap">
+    <div class="panel dark">
+      <div class="process-head">
+        <h2 class="h-section">{workProcess.heading}</h2>
+        <p class="lead">{workProcess.lead}</p>
+      </div>
+
+      <ol class="steps">
+        {
+          workProcess.steps.map((s, i) => (
+            <li class="step">
+              <span class="progress" aria-hidden="true">
+                {Array.from({ length: total }, (_, k) => (
+                  <i class={k <= i ? 'on' : ''} />
+                ))}
+              </span>
+              <span class="num" aria-hidden="true">
+                0{i + 1}
+              </span>
+              <h3 class="step-title">
+                <span class="visually-hidden">Tahap {i + 1}: </span>
+                {s.title}
+              </h3>
+              <p class="step-body">{s.body}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </div>
+</section>
+
