@@ -50,3 +50,17 @@ Kontras dicek untuk setiap palet (WCAG AA, 0 gagal): tinta, tinta-2, dan abu-abu
 | Sudut berundak pada tombol | Satu bentuk tombol untuk seluruh situs, menyambung motif piksel tanpa radius pil. |
 | Radius 16px hanya pada panel gelap dan gambar | Membedakan bidang besar dari kontrol kecil yang bersudut tegas. |
 
+## Gerak (MOTION 3) dan tujuannya
+
+| Gerak | Tujuan |
+|---|---|
+| Judul hero naik dalam 5 langkah (`steps()`) | Satu momen pembuka yang membawa motif piksel ke tipografi. Mati di `prefers-reduced-motion`. |
+| Pita piksel hero tersusun 8 langkah saat dibuka | Memperkenalkan papan piksel sekali saja, lalu diam. |
+| Jejak kursor (komet) yang mendingin dari lime ke navy | Identitas utama situs; hanya bergerak saat pengunjung bergerak, mendingin dalam sekitar 2 detik. |
+| Klik: gelombang cincin piksel | Umpan balik klik yang terasa di mana saja di halaman. |
+| Kursor diam: wajah piksel berkedip; klik wajah: hati naik | Momen kecil yang memberi kepribadian; kedipan memakai timer, bukan loop 60fps. |
+| Pratinjau arsip membuka dalam 5 langkah | Menghubungkan baris yang di-hover dengan gambarnya. |
+| Nama di footer terdorong kursor | Penutup yang bisa dimainkan; loop berhenti saat semua blok kembali. |
+| Hover: tombol naik 1px, kartu foto zoom 1.03, garis bawah tergambar | Umpan balik bahwa elemen bisa diklik. |
+
+Tidak ada animasi saat scroll. Satu-satunya gerak yang berulang lebih dari 5 detik adalah kedipan wajah piksel, dan kontrol "Piksel" di pojok kiri bawah mematikan seluruh efek (antislop R-39). Pilihan itu disimpan di browser. Bila pengunjung mengaktifkan `prefers-reduced-motion`, efek mati secara bawaan.
