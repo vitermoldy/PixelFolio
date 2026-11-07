@@ -16,3 +16,14 @@ Ada empat palet: **Hutan** (bawaan), **Kertas**, **Neon**, dan **Bara**. Pilihan
 - Ubah warnanya: edit blok `[data-palette='...']` di [`src/styles/global.css`](src/styles/global.css). Setiap palet punya peran yang sama (kertas, tinta, warna kedua, aksen, skala panas); penjelasan dan hasil cek kontras ada di [DESIGN.md](DESIGN.md).
 - Tambah palet: salin satu blok di `global.css` dengan nama baru, lalu daftarkan namanya di `palettes.ts`. Tombolnya muncul otomatis.
 
+## Menjalankan
+
+```bash
+npm install
+npm run dev       # http://localhost:4321
+npm run build     # cek tipe + build ke folder dist/
+npm run preview   # lihat hasil build
+```
+
+Butuh Node 22 atau lebih baru.
+
