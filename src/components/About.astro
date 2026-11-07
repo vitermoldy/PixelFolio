@@ -1,0 +1,44 @@
+---
+import { about, profile } from '../data/profile';
+---
+
+<section class="screen about" id="tentang">
+  <div class="wrap about-grid">
+    <div class="about-head">
+      <h2 class="h-section">{about.heading}</h2>
+      {
+        profile.photo ? (
+          <img class="portrait" src={profile.photo} alt={`Foto ${profile.name}`} width="480" height="600" loading="lazy" />
+        ) : (
+          <div class="portrait portrait--initials" role="img" aria-label={`Inisial ${profile.name}`}>
+            <span aria-hidden="true">{profile.initials}</span>
+          </div>
+        )
+      }
+    </div>
+
+    <div class="about-body">
+      {about.paragraphs.map((p) => <p class="lead">{p}</p>)}
+
+      {
+        about.tools.length > 0 && (
+          <dl class="tools">
+            {about.tools.map((t) => (
+              <div class="tool-row">
+                <dt class="px-label">{t.group}</dt>
+                <dd>
+                  <ul>
+                    {t.items.map((i) => (
+                      <li>{i}</li>
+                    ))}
+                  </ul>
+                </dd>
+              </div>
+            ))}
+          </dl>
+        )
+      }
+    </div>
+  </div>
+</section>
+
