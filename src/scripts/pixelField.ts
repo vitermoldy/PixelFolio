@@ -58,3 +58,18 @@ export type FieldApi = {
   refreshColours(): void;
 };
 
+// indeks palet (nama mengikuti palet "kertas"; warnanya mengikuti palet aktif: dingin, tengah, hangat, panas)
+const NAVY = 0;
+const BLUE = 1;
+const YELLOW = 2;
+const LIME = 3;
+const SPARK = 4;
+const INK = 5;
+const SOFT = 6; // kuning lembut, aman di bawah teks
+const BLUE_FAINT = 7;
+const NAVY_FAINT = 8;
+const DIM_BLUE = 9; // cincin yang memudar
+/** Warna pengganti di bawah teks; -1 = jangan digambar. */
+// mata dan mulut wajah (tinta) tidak digambar di bawah teks, agar huruf tidak tertumpuk tinta
+const UNDER_TEXT = [SOFT, LIME, SOFT, LIME, SOFT, -1, SOFT, -1, -1, -1];
+
