@@ -110,3 +110,17 @@ const pad = (n: number) => String(n).padStart(2, '0');
   )
 }
 
+<script>
+  // panel pratinjau mengikuti baris yang di-hover atau difokus
+  const list = document.querySelector<HTMLElement>('[data-index]');
+  const items = document.querySelectorAll<HTMLElement>('[data-preview-item]');
+  const show = (slug?: string) => {
+    if (!slug) return;
+    items.forEach((it) => it.classList.toggle('on', it.dataset.previewItem === slug));
+  };
+  list?.querySelectorAll<HTMLAnchorElement>('[data-preview]').forEach((row) => {
+    row.addEventListener('pointerenter', () => show(row.dataset.preview));
+    row.addEventListener('focus', () => show(row.dataset.preview));
+  });
+</script>
+
