@@ -36,3 +36,165 @@ import { profile } from '../data/profile';
   </div>
 </section>
 
+<style>
+  .hero {
+    position: relative;
+    height: 100svh;
+    min-height: 600px;
+    padding-top: var(--header-h);
+    display: grid;
+    grid-template-rows: auto 1fr auto;
+  }
+
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1.55fr 1fr;
+    gap: 48px;
+    padding-top: 56px;
+    align-items: start;
+  }
+
+  .hero-title {
+    font-size: clamp(44px, 6.6vw, 104px);
+    line-height: 0.94;
+    letter-spacing: -0.045em;
+    font-weight: 500;
+    justify-self: start;
+  }
+
+  .ln {
+    display: block;
+  }
+
+  .ln > span {
+    display: block;
+    animation: lineIn 0.7s steps(5) both;
+  }
+
+  .ln:nth-child(2) > span {
+    animation-delay: 0.08s;
+  }
+
+  .ln:nth-child(3) > span {
+    animation-delay: 0.16s;
+  }
+
+  .ln:nth-child(3) {
+    color: var(--muted);
+  }
+
+  /* baris naik dalam lima langkah tegas; clip-path menggantikan overflow agar huruf tidak terpotong */
+  @keyframes lineIn {
+    from {
+      transform: translateY(60%);
+      clip-path: inset(0 -5% 100% -5%);
+    }
+    to {
+      transform: none;
+      clip-path: inset(-20% -5% -30% -5%);
+    }
+  }
+
+  .hero-side {
+    display: grid;
+    gap: 24px;
+    padding: 16px 0 16px 24px;
+    border-left: 2px solid var(--ink);
+    margin-top: 8px;
+  }
+
+  .availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+    flex: none;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .hero-foot {
+    grid-row: 3;
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 24px;
+  }
+
+  .hint {
+    padding: 6px 10px;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: inset 0 0 0 2px var(--ink);
+    clip-path: var(--px-corners);
+  }
+
+  .hint-touch {
+    display: none;
+  }
+
+  @media (hover: none) {
+    .hint-mouse {
+      display: none;
+    }
+
+    .hint-touch {
+      display: inline;
+    }
+  }
+
+  :global(html[data-px-off]) .hero-foot {
+    visibility: hidden;
+  }
+
+  @media (max-width: 1023px) {
+    .hero-grid {
+      grid-template-columns: 1fr;
+      gap: 24px;
+      padding-top: 40px;
+    }
+
+    .hero-side {
+      max-width: 560px;
+    }
+  }
+
+  @media (max-width: 639px) {
+    .hero {
+      height: auto;
+      min-height: 100svh;
+    }
+
+    .hero-grid {
+      padding-top: 32px;
+    }
+
+    .hero-side {
+      padding-left: 16px;
+    }
+
+    .actions .btn {
+      flex: 1 1 100%;
+    }
+
+    /* di ponsel petunjuk akan bertumpuk dengan kontrol "Piksel" di pojok: ruangnya tetap (untuk pita piksel), teksnya disembunyikan */
+    .hero-foot {
+      justify-content: center;
+      padding-top: 160px;
+      padding-bottom: 80px;
+    }
+
+    .hint {
+      visibility: hidden;
+    }
+  }
+</style>
