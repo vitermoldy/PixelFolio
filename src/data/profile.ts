@@ -51,3 +51,17 @@ export const profile = {
   socials: [] as { label: string; url: string }[],
 };
 
+export const about = {
+  heading: 'Tentang saya',
+  paragraphs: [
+    'Tulis dua atau tiga kalimat tentang siapa Anda dan pekerjaan seperti apa yang paling Anda kuasai. Sebut bidang atau industri yang sering Anda tangani.',
+    'Paragraf kedua bisa menjelaskan cara Anda bekerja dengan klien: seberapa sering Anda melapor, bagaimana keputusan desain diambil, dan apa yang klien terima di akhir proyek.',
+  ],
+  /** Alat yang benar-benar Anda pakai sehari-hari. */
+  tools: [
+    { group: 'Desain', items: ['Figma', 'Aseprite', 'Photoshop'] },
+    { group: 'Kode', items: ['TypeScript', 'Astro', 'React', 'CSS'] },
+    { group: 'Rilis', items: ['Vercel', 'Netlify', 'GitHub Actions'] },
+  ],
+};
+
