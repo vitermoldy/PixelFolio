@@ -88,3 +88,75 @@ export const workProcess = {
   ],
 };
 
+const caseStudyTemplate = (title: string) => [
+  {
+    heading: 'Tantangan',
+    body: `Jelaskan masalah yang dihadapi klien sebelum ${title} dibuat. Apa yang tidak berjalan, dan siapa yang terdampak?`,
+  },
+  {
+    heading: 'Pendekatan',
+    body: 'Ceritakan keputusan penting yang Anda ambil dan alasannya. Sertakan sketsa, alur, atau screenshot di tahap ini.',
+  },
+  {
+    heading: 'Hasil',
+    body: 'Tuliskan apa yang berubah setelah rilis. Gunakan angka hanya bila Anda punya datanya.',
+  },
+];
+
+export const projects: Project[] = [
+  {
+    slug: 'proyek-satu',
+    title: 'Proyek Satu',
+    summary: 'Ringkasan satu kalimat: apa yang Anda buat, untuk siapa, dan masalah apa yang diselesaikan.',
+    kind: 'Situs perusahaan',
+    year: 2026,
+    role: 'Desain dan pengembangan',
+    tools: ['Figma', 'Astro'],
+    tone: 0,
+    caseStudy: caseStudyTemplate('Proyek Satu'),
+  },
+  {
+    slug: 'proyek-dua',
+    title: 'Proyek Dua',
+    summary: 'Ringkasan satu kalimat tentang proyek kedua.',
+    kind: 'Aplikasi web',
+    year: 2025,
+    role: 'Pengembangan front-end',
+    tools: ['React', 'TypeScript'],
+    tone: 1,
+    caseStudy: caseStudyTemplate('Proyek Dua'),
+  },
+  {
+    slug: 'proyek-tiga',
+    title: 'Proyek Tiga',
+    summary: 'Ringkasan satu kalimat tentang proyek ketiga.',
+    kind: 'Identitas visual',
+    year: 2025,
+    role: 'Desain',
+    tools: ['Figma', 'Aseprite'],
+    tone: 2,
+    caseStudy: caseStudyTemplate('Proyek Tiga'),
+  },
+  {
+    slug: 'proyek-empat',
+    title: 'Proyek Empat',
+    summary: 'Ringkasan satu kalimat tentang proyek keempat.',
+    kind: 'Toko online',
+    year: 2024,
+    role: 'Desain dan pengembangan',
+    tools: ['Astro', 'CSS'],
+    tone: 3,
+    caseStudy: caseStudyTemplate('Proyek Empat'),
+  },
+  {
+    slug: 'proyek-lima',
+    title: 'Proyek Lima',
+    summary: 'Ringkasan satu kalimat tentang proyek kelima.',
+    kind: 'Situs acara',
+    year: 2023,
+    role: 'Pengembangan',
+    tools: ['TypeScript', 'Netlify'],
+    tone: 1,
+    caseStudy: caseStudyTemplate('Proyek Lima'),
+  },
+];
