@@ -67,3 +67,125 @@ const year = new Date().getFullYear();
   if (root) mountPixelWordmark(root);
 </script>
 
+<style>
+  /* layar penutup: ajakan kontak di atas, nama piksel dan baris legal di dasar */
+  .closing {
+    min-height: 100svh;
+    padding: calc(var(--cell) * 15) 0 calc(var(--cell) * 4);
+    border-top: 2px solid var(--ink);
+    display: flex;
+  }
+
+  .closing-inner {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 64px;
+  }
+
+  .contact {
+    display: grid;
+    justify-items: start;
+    gap: 28px;
+  }
+
+  .availability {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    color: var(--ink);
+  }
+
+  .dot {
+    width: 8px;
+    height: 8px;
+    background: var(--accent);
+  }
+
+  .contact-title {
+    font-size: clamp(44px, 7vw, 112px);
+    line-height: 0.95;
+    letter-spacing: -0.045em;
+    max-width: 15ch;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .socials {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 32px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .socials a {
+    display: inline-block;
+    padding: 10px 0;
+  }
+
+  .wordmark {
+    position: relative;
+  }
+
+  /* teks asli tetap ada sebagai cadangan tanpa JavaScript */
+  .wordmark-text {
+    font-family: var(--font-pixel);
+    font-size: clamp(56px, 13vw, 220px);
+    line-height: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-transform: uppercase;
+  }
+
+  .wordmark.has-canvas .wordmark-text {
+    display: none;
+  }
+
+  .wordmark-canvas {
+    width: 100%;
+    touch-action: pan-y;
+  }
+
+  .wordmark:not(.has-canvas) .wordmark-canvas {
+    display: none;
+  }
+
+  .legal {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px 32px;
+    margin-top: 32px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line-strong);
+    font-size: 15px;
+    color: var(--ink-2);
+  }
+
+  .legal a {
+    display: inline-block;
+    padding: 10px 0;
+    color: var(--ink);
+  }
+
+  @media (max-width: 639px) {
+    .closing {
+      padding-top: calc(var(--cell) * 14);
+    }
+
+    .actions .btn {
+      flex: 1 1 100%;
+    }
+
+    .actions {
+      width: 100%;
+    }
+  }
+</style>
