@@ -1,0 +1,14 @@
+node_modules/
+dist/
+.astro/
+shots/
+.taste-skill/
+.DS_Store
+
+# alat AI lokal (skill agen), bukan bagian situs
+.agents/
+.claude/
+skills-lock.json
+
+# script commit lokal
+commit-push.ps1
