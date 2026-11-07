@@ -35,3 +35,19 @@
   --px-soft: #f8de8f;
 }
 
+[data-palette='kertas'] {
+  --paper: #f3f0e8;
+  --paper-2: #e8e4d8;
+  --ink: #14130f;
+  --ink-2: #33302a;
+  --muted: #5c584e;
+  --mid: #2b44e0;
+  --accent: #ff5a1f;
+  --on-dark: #f3f0e8;
+  --on-dark-muted: #b9b4a6;
+  --px-cold: #1c2541;
+  --px-warm: #f2c230;
+  --px-hot: #e2f95b;
+  --px-soft: #f6d66b;
+}
+
