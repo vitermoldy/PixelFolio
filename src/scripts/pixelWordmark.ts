@@ -78,3 +78,144 @@ function layout(word: string, cols: number) {
   return best;
 }
 
+export function mountPixelWordmark(root: HTMLElement) {
+  const canvas = root.querySelector<HTMLCanvasElement>('[data-wordmark]');
+  const text = root.querySelector<HTMLElement>('[data-wordmark-text]');
+  const ctx = canvas?.getContext('2d');
+  if (!canvas || !ctx || !text) return;
+
+  const word = (text.textContent || '')
+    .trim()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .toUpperCase();
+  let ink = '';
+  let ramp: string[] = [];
+  /** Baca ulang warna dari palet aktif. */
+  const readColours = () => {
+    const css = getComputedStyle(document.documentElement);
+    const get = (n: string, f: string) => css.getPropertyValue(n).trim() || f;
+    ink = get('--ink', '#121a14');
+    ramp = [get('--mid', '#1f6e44'), get('--px-warm', '#f0b429'), get('--px-hot', '#fff36b')];
+  };
+  readColours();
+  addEventListener('pf:palette', () => {
+    readColours();
+    render(false);
+  });
+  const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  let blocks: Block[] = [];
+  let cell = 10;
+  let W = 0;
+  let H = 0;
+  let mx = -9999;
+  let my = -9999;
+  let raf = 0;
+
+  function build() {
+    const width = root.clientWidth;
+    // satu baris bila blok masih cukup besar, selain itu dua baris
+    let lines = [word];
+    cell = Math.floor(width / Math.max(1, lineWidth(word)));
+    if (cell < 7) {
+      lines = layout(word, 0);
+      lines = lines.length > 1 ? lines : [word];
+      cell = Math.floor(width / Math.max(...lines.map(lineWidth)));
+    }
+    cell = Math.max(3, Math.min(32, cell));
+
+    blocks = [];
+    lines.forEach((line, li) => {
+      let cx = 0;
+      const top = li * 9;
+      for (const ch of line) {
+        const rows = glyph(ch);
+        rows.forEach((row, ry) => {
+          for (let rx = 0; rx < row.length; rx++) {
+            if (row[rx] !== '#') continue;
+            const hx = (cx + rx) * cell;
+            const hy = (top + ry) * cell;
+            blocks.push({ hx, hy, x: hx, y: hy, vx: 0, vy: 0 });
+          }
+        });
+        cx += rows[0].length + 1;
+      }
+    });
+
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    W = width;
+    H = (lines.length * 9 - 2) * cell;
+    canvas!.width = Math.round(W * dpr);
+    canvas!.height = Math.round(H * dpr);
+    canvas!.style.width = `${W}px`;
+    canvas!.style.height = `${H}px`;
+    ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+    root.classList.add('has-canvas');
+    render(false);
+  }
+
+  function render(step: boolean) {
+    let moving = false;
+    ctx!.clearRect(0, 0, W, H);
+    const R = cell * 6;
+    const gap = cell >= 8 ? 1 : 0; // celah antar-blok seperti grid, hanya bila blok cukup besar
+    for (const b of blocks) {
+      if (step) {
+        const dx = b.x + cell / 2 - mx;
+        const dy = b.y + cell / 2 - my;
+        const d2 = dx * dx + dy * dy;
+        if (d2 < R * R && d2 > 0.01) {
+          const d = Math.sqrt(d2);
+          const f = ((R - d) / R) * cell * 0.22;
+          b.vx += (dx / d) * f;
+          b.vy += (dy / d) * f;
+        }
+        b.vx += (b.hx - b.x) * 0.08;
+        b.vy += (b.hy - b.y) * 0.08;
+        b.vx *= 0.78;
+        b.vy *= 0.78;
+        b.x += b.vx;
+        b.y += b.vy;
+        if (Math.abs(b.vx) + Math.abs(b.vy) > 0.05 || Math.abs(b.x - b.hx) + Math.abs(b.y - b.hy) > 0.5) moving = true;
+        else {
+          b.x = b.hx;
+          b.y = b.hy;
+        }
+      }
+      // makin jauh terdorong, makin "panas": biru, kuning, lime
+      const d = (Math.abs(b.x - b.hx) + Math.abs(b.y - b.hy)) / cell;
+      ctx!.fillStyle = d > 3 ? ramp[2] : d > 1.5 ? ramp[1] : d > 0.5 ? ramp[0] : ink;
+      ctx!.fillRect(Math.round(b.x) + gap, Math.round(b.y) + gap, cell - gap * 2, cell - gap * 2);
+    }
+    return moving;
+  }
+
+  function loop() {
+    const moving = render(true);
+    raf = moving || mx > -9999 ? requestAnimationFrame(loop) : 0;
+  }
+
+  if (!reduced) {
+    canvas.addEventListener('pointermove', (e) => {
+      if (e.pointerType === 'touch') return;
+      const r = canvas.getBoundingClientRect();
+      mx = e.clientX - r.left;
+      my = e.clientY - r.top;
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+    canvas.addEventListener('pointerleave', () => {
+      mx = -9999;
+      my = -9999;
+      if (!raf) raf = requestAnimationFrame(loop);
+    });
+  }
+
+  build();
+  let lastW = root.clientWidth;
+  new ResizeObserver(() => {
+    if (Math.abs(root.clientWidth - lastW) < 1) return;
+    lastW = root.clientWidth;
+    build();
+  }).observe(root);
+}
