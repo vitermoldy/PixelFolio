@@ -49,3 +49,32 @@ const G: Record<string, string> = {
   ' ': '...|...|...|...|...|...|...',
 };
 
+type Block = { hx: number; hy: number; x: number; y: number; vx: number; vy: number };
+
+function glyph(ch: string) {
+  return (G[ch] ?? G[' ']).split('|');
+}
+
+function lineWidth(line: string) {
+  let w = 0;
+  for (const ch of line) w += glyph(ch)[0].length + 1;
+  return Math.max(0, w - 1);
+}
+
+/** Pecah nama menjadi satu atau dua baris, pilih yang paling seimbang. */
+function layout(word: string, cols: number) {
+  if (lineWidth(word) <= cols || !word.includes(' ')) return [word];
+  const parts = word.split(' ');
+  let best = [word];
+  let bestW = Infinity;
+  for (let i = 1; i < parts.length; i++) {
+    const lines = [parts.slice(0, i).join(' '), parts.slice(i).join(' ')];
+    const w = Math.max(...lines.map(lineWidth));
+    if (w < bestW) {
+      bestW = w;
+      best = lines;
+    }
+  }
+  return best;
+}
+
