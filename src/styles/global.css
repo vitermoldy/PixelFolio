@@ -83,3 +83,65 @@
   --px-soft: #fbd99a;
 }
 
+:root {
+  /* garis diturunkan dari tinta palet aktif */
+  --line: color-mix(in srgb, var(--ink) 14%, transparent);
+  --line-strong: color-mix(in srgb, var(--ink) 32%, transparent);
+  --line-on-dark: color-mix(in srgb, var(--on-dark) 24%, transparent);
+  --grid-line: color-mix(in srgb, var(--ink) 4.5%, transparent);
+  --px: 14px;
+
+  /* grid piksel 8px: semua jarak kelipatan --cell */
+  --cell: 8px;
+  --gutter: clamp(20px, 5vw, 72px);
+  --maxw: 1280px;
+  --radius: 16px;
+  --header-h: 64px;
+
+  --font-sans: 'Schibsted Grotesk', 'Helvetica Neue', Arial, sans-serif;
+  --font-pixel: 'Tiny5', 'Schibsted Grotesk', monospace;
+
+  /* gerak: dari referensi motion taste-skill */
+  --m-in: 140ms;
+  --m-out: 200ms;
+  --m-press: 90ms;
+  --m-image: 600ms;
+  --m-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* sudut berundak satu piksel besar, motif identitas */
+  --step: 4px;
+  --px-corners: polygon(
+    var(--step) 0, calc(100% - var(--step)) 0, calc(100% - var(--step)) var(--step), 100% var(--step),
+    100% calc(100% - var(--step)), calc(100% - var(--step)) calc(100% - var(--step)), calc(100% - var(--step)) 100%,
+    var(--step) 100%, var(--step) calc(100% - var(--step)), 0 calc(100% - var(--step)), 0 var(--step), var(--step) var(--step)
+  );
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 0; /* section padding sudah termasuk tinggi header */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  background-color: var(--paper);
+  /* grid sel piksel: memperlihatkan papan tempat efek kursor menggambar */
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: var(--px) var(--px);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  font-size: 17px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
