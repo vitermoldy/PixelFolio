@@ -1,0 +1,38 @@
+---
+import { profile } from '../data/profile';
+---
+
+<!-- data-px-ground: lapisan piksel global menggambar pita tanah di dasar hero -->
+<section class="hero" id="atas" data-px-ground>
+  <div class="wrap hero-grid">
+    <h1 class="hero-title">
+      <span class="ln"><span>{profile.name},</span></span>
+      <span class="ln"><span>{profile.role}</span></span>
+      <span class="ln"><span>di {profile.city}.</span></span>
+    </h1>
+
+    <div class="hero-side">
+      <p class="lead">{profile.intro}</p>
+      {
+        profile.availability && (
+          <p class="px-label availability">
+            <span class="dot" aria-hidden="true" />
+            {profile.availability}
+          </p>
+        )
+      }
+      <div class="actions">
+        <a class="btn" href={`mailto:${profile.email}`}>Kirim email</a>
+        <a class="btn btn--ghost" href="#karya">Lihat karya</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="wrap hero-foot">
+    <p class="px-label hint">
+      <span class="hint-mouse">Gerakkan kursor, diam sebentar, atau klik di mana saja.</span>
+      <span class="hint-touch">Ketuk di mana saja.</span>
+    </p>
+  </div>
+</section>
+
