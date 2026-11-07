@@ -31,3 +31,30 @@ const TEXT_ZONES =
 
 const HEART = ['.##...##.', '####.####', '#########', '#########', '.#######.', '..#####..', '...###...', '....#....'];
 
+type Ring = { cx: number; cy: number; t0: number; seed: number };
+type Heart = { cx: number; cy: number; t0: number; seed: number };
+type Expr = 'smile' | 'happy' | 'o' | 'wink';
+type Face = {
+  cx: number;
+  cy: number;
+  t0: number;
+  variant: number;
+  freckles: Map<string, number>;
+  expr: Expr;
+  exprUntil: number;
+  blinkUntil: number;
+  nextBlink: number;
+  expireAt: number;
+};
+
+function hash(a: number, b: number, c = 0) {
+  const n = Math.sin(a * 127.1 + b * 311.7 + c * 74.7) * 43758.5453;
+  return n - Math.floor(n);
+}
+
+export type FieldApi = {
+  setEnabled(on: boolean): void;
+  setBrush(size: 1 | 2 | 3): void;
+  refreshColours(): void;
+};
+
