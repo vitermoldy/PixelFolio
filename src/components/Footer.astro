@@ -1,0 +1,63 @@
+---
+import { profile } from '../data/profile';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="closing" id="kontak">
+  <div class="wrap closing-inner">
+    <div class="contact">
+      {
+        profile.availability && (
+          <p class="px-label availability">
+            <span class="dot" aria-hidden="true" />
+            {profile.availability}
+          </p>
+        )
+      }
+      <h2 class="contact-title">Satu email untuk memulai proyek bersama {profile.name}</h2>
+      {profile.replyNote && <p class="lead">{profile.replyNote}</p>}
+
+      <div class="actions">
+        <a class="btn" href={`mailto:${profile.email}`}>Kirim email</a>
+        {
+          profile.cvFile && (
+            <a class="btn btn--ghost" href={profile.cvFile} download>
+              Unduh CV
+            </a>
+          )
+        }
+      </div>
+
+      {
+        profile.socials.length > 0 && (
+          <ul class="socials">
+            {profile.socials.map((s) => (
+              <li>
+                <a class="link" href={s.url} rel="me noopener" target="_blank">
+                  {s.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+
+    <div class="bottom">
+      <div class="wordmark" data-wordmark-root>
+        <p class="wordmark-text" data-wordmark-text aria-hidden="true">{profile.name}</p>
+        <canvas class="wordmark-canvas" data-wordmark aria-hidden="true"></canvas>
+      </div>
+
+      <div class="legal">
+        <p>© {year} {profile.name}</p>
+        <p>
+          Dibuat dengan <a class="link" href="https://astro.build" rel="noopener" target="_blank">Astro</a>
+        </p>
+        <a class="link" href="/#atas">Kembali ke atas</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
