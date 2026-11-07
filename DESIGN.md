@@ -28,3 +28,25 @@ Pengunjung bisa menukar palet lewat kontrol "Piksel" di pojok kiri bawah; piliha
 
 Kontras dicek untuk setiap palet (WCAG AA, 0 gagal): tinta, tinta-2, dan abu-abu di atas kertas, kertas-2, hangat lembut, dan paling panas; teks terang di panel gelap; teks putih di atas warna kedua. Hijau daun Hutan digelapkan dari `#2f8f5b` ke `#1f6e44` agar teks putih di tombol hover mencapai 6,2:1. Sampul proyek, efek kursor, dan nama piksel di footer membaca warna dari palet aktif, jadi semuanya ikut berganti tanpa muat ulang.
 
+## Alasan setiap keputusan (antislop R-31)
+
+| Keputusan | Alasan |
+|---|---|
+| Kertas + tinta di setiap palet | Kesan cetak; latar tidak pernah putih murni kecuali palet Neon yang memang meniru referensi. |
+| Warna kedua untuk hover dan skala piksel | Satu warna kerja selain tinta, agar aksen tetap langka. |
+| Hutan sebagai bawaan | Pilihan pemilik: hijau jarang dipakai portofolio, jadi langsung berbeda dari template lain. |
+| Tema terang tanpa toggle gelap | Identitasnya kertas dan tinta; panel gelap (proyek unggulan, proses) dipakai sebagai jeda ritme, bukan mode. |
+| Schibsted Grotesk | Grotesk editorial dengan karakter tegas di ukuran besar, bukan Inter/Geist bawaan AI. |
+| Tiny5 untuk label kecil | Font piksel yang angka dan huruf kecilnya tetap terbaca di 15px (Pixelify Sans diuji dan ditolak: angka 5 terbaca seperti S). Huruf biasa, bukan kapital berjarak lebar. |
+| Bitmap 5x7 buatan sendiri di footer | Tajam di setiap ukuran dan tidak bergantung pada pemuatan font. |
+| Skala panas efek: dingin, warna kedua, hangat, paling panas, plus percikan aksen | Satu skala per palet, bukan lima warna lepas. Hanya isian piksel, tidak pernah warna teks. |
+| Di bawah teks hanya "paling panas" dan "hangat lembut" | Teks tetap lolos AA di keempat palet (terendah 4,77:1). Kuning biasa ditolak (Kertas: 4,23:1). Mata dan mulut wajah tidak digambar di bawah teks, dan wajah hanya muncul di area kosong. |
+| Grid sel 14px tipis di latar | Memperlihatkan papan tempat kursor menggambar; ikut hilang saat efek dimatikan (antislop R-07). |
+| Grid 8px | Semua jarak kelipatan satu "piksel besar", agar motif terasa sampai ke tata letak. |
+| Proyek unggulan + indeks baris | Hierarki jelas: satu proyek besar, sisanya daftar yang cepat dipindai. Bukan grid kartu seragam (R-14). |
+| Panel pratinjau di arsip | Memberi gambar pada bagian yang tadinya hanya teks; berganti saat hover dan saat fokus keyboard. |
+| Empat tahap proses dengan bar progres | Bar menunjukkan posisi tahap (1/4 sampai 4/4), jadi berfungsi, bukan hiasan. Empat, bukan pola tiga langkah. |
+| Panah piksel di baris arsip | Satu-satunya panah di situs: menandai baris sebagai tautan ke halaman studi kasus. |
+| Sudut berundak pada tombol | Satu bentuk tombol untuk seluruh situs, menyambung motif piksel tanpa radius pil. |
+| Radius 16px hanya pada panel gelap dan gambar | Membedakan bidang besar dari kontrol kecil yang bersudut tegas. |
+
