@@ -8,3 +8,11 @@ Di seluruh halaman, kursor meninggalkan jejak piksel yang mendingin dari lime ke
 
 Pengunjung bisa mematikan efek, mengganti ukuran kuas, dan menukar palet warna lewat kontrol "Piksel" di pojok kiri bawah. Kodenya ada di [`src/scripts/pixelField.ts`](src/scripts/pixelField.ts); warna diatur lewat variabel `--px-*` di [`src/styles/global.css`](src/styles/global.css).
 
+## Palet warna
+
+Ada empat palet: **Hutan** (bawaan), **Kertas**, **Neon**, dan **Bara**. Pilihan pengunjung diingat browser.
+
+- Ganti palet bawaan: ubah `defaultPalette` di [`src/data/palettes.ts`](src/data/palettes.ts).
+- Ubah warnanya: edit blok `[data-palette='...']` di [`src/styles/global.css`](src/styles/global.css). Setiap palet punya peran yang sama (kertas, tinta, warna kedua, aksen, skala panas); penjelasan dan hasil cek kontras ada di [DESIGN.md](DESIGN.md).
+- Tambah palet: salin satu blok di `global.css` dengan nama baru, lalu daftarkan namanya di `palettes.ts`. Tombolnya muncul otomatis.
+
