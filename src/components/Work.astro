@@ -1,0 +1,112 @@
+---
+import { projects } from '../data/profile';
+import Cover from './Cover.astro';
+
+const [featured, ...rest] = projects;
+const years = projects.map((p) => p.year);
+const span =
+  projects.length === 0
+    ? ''
+    : Math.min(...years) === Math.max(...years)
+      ? `${Math.max(...years)}`
+      : `${Math.min(...years)} sampai ${Math.max(...years)}`;
+const pad = (n: number) => String(n).padStart(2, '0');
+---
+
+<section class="screen work" id="karya">
+  <div class="wrap">
+    <div class="work-head">
+      <h2 class="h-section">Karya pilihan</h2>
+      {projects.length > 0 && <p class="px-label">{projects.length} proyek, {span}</p>}
+    </div>
+
+    {
+      projects.length === 0 && (
+        <div class="empty">
+          <p class="px-label">Belum ada proyek</p>
+          <p>
+            Tambahkan proyek pertama Anda di <code>src/data/profile.ts</code>, lalu bagian ini terisi otomatis.
+          </p>
+        </div>
+      )
+    }
+
+    {
+      featured && (
+        <article class="featured dark">
+          <a class="featured-media" href={`/karya/${featured.slug}/`} tabindex="-1" aria-hidden="true">
+            <Cover project={featured} />
+          </a>
+          <div class="featured-body">
+            <p class="px-label">
+              {pad(1)} / {featured.kind}, {featured.year}
+            </p>
+            <h3 class="featured-title">{featured.title}</h3>
+            <p class="featured-summary">{featured.summary}</p>
+            <dl class="meta">
+              <div>
+                <dt class="px-label">Peran</dt>
+                <dd>{featured.role}</dd>
+              </div>
+              <div>
+                <dt class="px-label">Alat</dt>
+                <dd>{featured.tools.join(', ')}</dd>
+              </div>
+            </dl>
+            <a class="btn" href={`/karya/${featured.slug}/`}>
+              Baca studi kasus
+            </a>
+          </div>
+        </article>
+      )
+    }
+  </div>
+</section>
+
+{
+  rest.length > 0 && (
+    <section class="screen archive" id="arsip">
+      <div class="wrap">
+        <h2 class="h-section">Proyek lainnya</h2>
+        <div class="archive-grid">
+          <ol class="index" data-index>
+            {rest.map((p, i) => (
+              <li>
+                <a class="row" href={`/karya/${p.slug}/`} data-preview={p.slug}>
+                  <span class="px-label n">{pad(i + 2)}</span>
+                  <span class="row-thumb" aria-hidden="true">
+                    <Cover project={p} />
+                  </span>
+                  <span class="row-main">
+                    <span class="row-title">{p.title}</span>
+                    <span class="row-kind">{p.kind}</span>
+                  </span>
+                  <span class="row-year">{p.year}</span>
+                  <svg
+                    class="row-arrow"
+                    viewBox="0 0 12 12"
+                    width="16"
+                    height="16"
+                    aria-hidden="true"
+                    shape-rendering="crispEdges"
+                  >
+                    <path fill="currentColor" d="M0 5h8V3h2v2h2v2h-2v2H8V7H0z" />
+                  </svg>
+                </a>
+              </li>
+            ))}
+          </ol>
+
+          <div class="preview" aria-hidden="true">
+            {rest.map((p, i) => (
+              <div class={`preview-item${i === 0 ? ' on' : ''}`} data-preview-item={p.slug}>
+                <Cover project={p} />
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
